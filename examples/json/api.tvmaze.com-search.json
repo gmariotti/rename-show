@@ -1,0 +1,541 @@
+[
+  {
+    "score": 0.1486256,
+    "show": {
+      "id": 1871,
+      "url": "http://www.tvmaze.com/shows/1871/mr-robot",
+      "name": "Mr. Robot",
+      "type": "Scripted",
+      "language": "English",
+      "genres": [
+        "Drama",
+        "Crime",
+        "Thriller"
+      ],
+      "status": "Running",
+      "runtime": 60,
+      "premiered": "2015-06-24",
+      "schedule": {
+        "time": "22:00",
+        "days": [
+          "Wednesday"
+        ]
+      },
+      "rating": {
+        "average": 9
+      },
+      "weight": 3,
+      "network": {
+        "id": 30,
+        "name": "USA Network",
+        "country": {
+          "name": "United States",
+          "code": "US",
+          "timezone": "America/New_York"
+        }
+      },
+      "webChannel": {
+        "id": 3,
+        "name": "Amazon",
+        "country": {
+          "name": "United States",
+          "code": "US",
+          "timezone": "America/New_York"
+        }
+      },
+      "externals": {
+        "tvrage": 42422,
+        "thetvdb": 289590,
+        "imdb": "tt4158110"
+      },
+      "image": {
+        "medium": "http://tvmazecdn.com/uploads/images/medium_portrait/48/120305.jpg",
+        "original": "http://tvmazecdn.com/uploads/images/original_untouched/48/120305.jpg"
+      },
+      "summary": "<p><strong><em>\"Mr. Robot\"</em></strong> follows Elliot, a young programmer who works as a cyber-security engineer by day and as a vigilante hacker by night. Elliot finds himself at a crossroads when the mysterious leader of an underground hacker group recruits him to destroy the firm he is paid to protect. Compelled by his personal beliefs, Elliot struggles to resist the chance to take down the multinational CEOs he believes are running (and ruining) the world. </p>",
+      "updated": 1461291120,
+      "_links": {
+        "self": {
+          "href": "http://api.tvmaze.com/shows/1871"
+        },
+        "previousepisode": {
+          "href": "http://api.tvmaze.com/episodes/167387"
+        },
+        "nextepisode": {
+          "href": "http://api.tvmaze.com/episodes/733139"
+        }
+      }
+    }
+  },
+  {
+    "score": 0.14687237,
+    "show": {
+      "id": 686,
+      "url": "http://www.tvmaze.com/shows/686/robot-chicken",
+      "name": "Robot Chicken",
+      "type": "Animation",
+      "language": "English",
+      "genres": [
+        "Comedy"
+      ],
+      "status": "Running",
+      "runtime": 15,
+      "premiered": "2005-02-20",
+      "schedule": {
+        "time": "23:30",
+        "days": [
+          "Sunday"
+        ]
+      },
+      "rating": {
+        "average": 8.4
+      },
+      "weight": 1,
+      "network": {
+        "id": 10,
+        "name": "Adult Swim",
+        "country": {
+          "name": "United States",
+          "code": "US",
+          "timezone": "America/New_York"
+        }
+      },
+      "webChannel": null,
+      "externals": {
+        "tvrage": 5027,
+        "thetvdb": 75734,
+        "imdb": "tt0437745"
+      },
+      "image": {
+        "medium": "http://tvmazecdn.com/uploads/images/medium_portrait/5/14886.jpg",
+        "original": "http://tvmazecdn.com/uploads/images/original_untouched/5/14886.jpg"
+      },
+      "summary": "<p>From creators Seth Green and Matthew Senreich, <strong><em>\"</em></strong><strong><em>Robot Chicken\"</em></strong> is stop-motion animation with a demented twist.</p>",
+      "updated": 1462166614,
+      "_links": {
+        "self": {
+          "href": "http://api.tvmaze.com/shows/686"
+        },
+        "previousepisode": {
+          "href": "http://api.tvmaze.com/episodes/691688"
+        },
+        "nextepisode": {
+          "href": "http://api.tvmaze.com/episodes/766099"
+        }
+      }
+    }
+  },
+  {
+    "score": 0.14575063,
+    "show": {
+      "id": 12874,
+      "url": "http://www.tvmaze.com/shows/12874/robot-carnival",
+      "name": "Robot Carnival",
+      "type": "Animation",
+      "language": "Japanese",
+      "genres": [],
+      "status": "Ended",
+      "runtime": 10,
+      "premiered": "1987-07-21",
+      "schedule": {
+        "time": "",
+        "days": []
+      },
+      "rating": {
+        "average": null
+      },
+      "weight": 0,
+      "network": {
+        "id": 996,
+        "name": "Bandai Channel",
+        "country": {
+          "name": "Japan",
+          "code": "JP",
+          "timezone": "Asia/Tokyo"
+        }
+      },
+      "webChannel": null,
+      "externals": {
+        "tvrage": null,
+        "thetvdb": 96241,
+        "imdb": "tt0093871"
+      },
+      "image": {
+        "medium": "http://tvmazecdn.com/uploads/images/medium_portrait/44/110172.jpg",
+        "original": "http://tvmazecdn.com/uploads/images/original_untouched/44/110172.jpg"
+      },
+      "summary": "<p>9 of Japan's leading animators were asked to create a short segment that followed the theme of \"Robots,\" for their inclusion in this film. Essentially, this \"movie\" is 9 short films, all independant of one another. The common element is human interaction with robots, namely the consequences of creating life with one's own hands, played in nine very different ways.</p>",
+      "updated": 1455122432,
+      "_links": {
+        "self": {
+          "href": "http://api.tvmaze.com/shows/12874"
+        },
+        "previousepisode": {
+          "href": "http://api.tvmaze.com/episodes/609776"
+        }
+      }
+    }
+  },
+  {
+    "score": 0.14570652,
+    "show": {
+      "id": 4724,
+      "url": "http://www.tvmaze.com/shows/4724/robot-wars",
+      "name": "Robot Wars",
+      "type": "Game Show",
+      "language": "English",
+      "genres": [
+        "Action"
+      ],
+      "status": "Ended",
+      "runtime": 60,
+      "premiered": "1998-01-02",
+      "schedule": {
+        "time": "19:00",
+        "days": [
+          "Sunday"
+        ]
+      },
+      "rating": {
+        "average": 9
+      },
+      "weight": 0,
+      "network": {
+        "id": 135,
+        "name": "Channel 5",
+        "country": {
+          "name": "United Kingdom",
+          "code": "GB",
+          "timezone": "Europe/London"
+        }
+      },
+      "webChannel": null,
+      "externals": {
+        "tvrage": null,
+        "thetvdb": 71146,
+        "imdb": null
+      },
+      "image": {
+        "medium": "http://tvmazecdn.com/uploads/images/medium_portrait/21/53001.jpg",
+        "original": "http://tvmazecdn.com/uploads/images/original_untouched/21/53001.jpg"
+      },
+      "summary": "<p><strong><em>\"Robot Wars\"</em></strong> is a British game show modelled on a US-based competition of the same name. Teams of amateur and professional roboteers make their own robots to fight against each other in both friendly and tournament matches.</p>",
+      "updated": 1459776347,
+      "_links": {
+        "self": {
+          "href": "http://api.tvmaze.com/shows/4724"
+        },
+        "previousepisode": {
+          "href": "http://api.tvmaze.com/episodes/302444"
+        }
+      }
+    }
+  },
+  {
+    "score": 0.14570652,
+    "show": {
+      "id": 12636,
+      "url": "http://www.tvmaze.com/shows/12636/robot-wars",
+      "name": "Robot Wars",
+      "type": "Game Show",
+      "language": "English",
+      "genres": [],
+      "status": "In Development",
+      "runtime": null,
+      "premiered": null,
+      "schedule": {
+        "time": "",
+        "days": []
+      },
+      "rating": {
+        "average": null
+      },
+      "weight": 0,
+      "network": {
+        "id": 37,
+        "name": "BBC Two",
+        "country": {
+          "name": "United Kingdom",
+          "code": "GB",
+          "timezone": "Europe/London"
+        }
+      },
+      "webChannel": null,
+      "externals": {
+        "tvrage": null,
+        "thetvdb": null,
+        "imdb": null
+      },
+      "image": {
+        "medium": "http://tvmazecdn.com/uploads/images/medium_portrait/44/111218.jpg",
+        "original": "http://tvmazecdn.com/uploads/images/original_untouched/44/111218.jpg"
+      },
+      "summary": "<p>A reboot of the classic series which see's Robots created by teams go head to head in fighting one another. Dara O'Briain and Angela Scanlon will present the new series.</p>",
+      "updated": 1455310112,
+      "_links": {
+        "self": {
+          "href": "http://api.tvmaze.com/shows/12636"
+        }
+      }
+    }
+  },
+  {
+    "score": 0.11669878,
+    "show": {
+      "id": 16745,
+      "url": "http://www.tvmaze.com/shows/16745/straight-title-robot-anime",
+      "name": "Straight Title Robot Anime",
+      "type": "Animation",
+      "language": "Japanese",
+      "genres": [
+        "Anime",
+        "Science-Fiction"
+      ],
+      "status": "Ended",
+      "runtime": 15,
+      "premiered": "2013-02-06",
+      "schedule": {
+        "time": "01:30",
+        "days": []
+      },
+      "rating": {
+        "average": null
+      },
+      "weight": 0,
+      "network": {
+        "id": 132,
+        "name": "Tokyo MX",
+        "country": {
+          "name": "Japan",
+          "code": "JP",
+          "timezone": "Asia/Tokyo"
+        }
+      },
+      "webChannel": null,
+      "externals": {
+        "tvrage": null,
+        "thetvdb": 266840,
+        "imdb": null
+      },
+      "image": {
+        "medium": "http://tvmazecdn.com/uploads/images/medium_portrait/55/139771.jpg",
+        "original": "http://tvmazecdn.com/uploads/images/original_untouched/55/139771.jpg"
+      },
+      "summary": "<p>The story of the anime is set in the year Mobile Century 8013. It has been over seven millennia since humanity was wiped out on Earth, but the surviving military robots continue to wage war with no end in sight. The war has embroiled the Rebellion Federation that controls Europe and the Principality of Shin centered in Asia. Three young robots stand up to put an end to this futile war.</p>",
+      "updated": 1462677399,
+      "_links": {
+        "self": {
+          "href": "http://api.tvmaze.com/shows/16745"
+        },
+        "previousepisode": {
+          "href": "http://api.tvmaze.com/episodes/772094"
+        }
+      }
+    }
+  },
+  {
+    "score": 0.11657655,
+    "show": {
+      "id": 5936,
+      "url": "http://www.tvmaze.com/shows/5936/robot-combat-league",
+      "name": "Robot Combat League",
+      "type": "Game Show",
+      "language": "English",
+      "genres": [
+        "DIY"
+      ],
+      "status": "Ended",
+      "runtime": null,
+      "premiered": "2013-02-26",
+      "schedule": {
+        "time": "",
+        "days": []
+      },
+      "rating": {
+        "average": 6
+      },
+      "weight": 0,
+      "network": {
+        "id": 16,
+        "name": "SyFy",
+        "country": {
+          "name": "United States",
+          "code": "US",
+          "timezone": "America/New_York"
+        }
+      },
+      "webChannel": null,
+      "externals": {
+        "tvrage": 34329,
+        "thetvdb": 266387,
+        "imdb": "tt2555256"
+      },
+      "image": {
+        "medium": "http://tvmazecdn.com/uploads/images/medium_portrait/23/58539.jpg",
+        "original": "http://tvmazecdn.com/uploads/images/original_untouched/23/58539.jpg"
+      },
+      "summary": "<p>The fusion of a human's fighting spirit with a powerful robotic machine \nbuilt for destruction has become a reality. This extraordinary series \nfeatures twelve teams consisting of a fighter (a \"robo-jockey\") and a \nrobotics engineer (a \"robo-tech\") from myriad backgrounds including a \nrace car driver, an Olympic athlete, a National Guard helicopter pilot \nalong with a mix of professional fighters and software engineers. Each \nteam is paired with its own unique robot and will fight in a \nfirst-of-its kind competition using a high-tech exo-suit that translates\n their movements to their robot. Each fight consists of three rounds of \nintense action, with the winning team advancing in the competition.</p>",
+      "updated": 1459776155,
+      "_links": {
+        "self": {
+          "href": "http://api.tvmaze.com/shows/5936"
+        },
+        "previousepisode": {
+          "href": "http://api.tvmaze.com/episodes/354888"
+        }
+      }
+    }
+  },
+  {
+    "score": 0.10201005,
+    "show": {
+      "id": 15591,
+      "url": "http://www.tvmaze.com/shows/15591/johnny-sokko-and-his-flying-robot",
+      "name": "Johnny Sokko and His Flying Robot",
+      "type": "Scripted",
+      "language": "Japanese",
+      "genres": [],
+      "status": "Ended",
+      "runtime": 25,
+      "premiered": "1967-10-11",
+      "schedule": {
+        "time": "",
+        "days": []
+      },
+      "rating": {
+        "average": null
+      },
+      "weight": 0,
+      "network": {
+        "id": 263,
+        "name": "TV Asahi",
+        "country": {
+          "name": "Japan",
+          "code": "JP",
+          "timezone": "Asia/Tokyo"
+        }
+      },
+      "webChannel": null,
+      "externals": {
+        "tvrage": null,
+        "thetvdb": 82510,
+        "imdb": null
+      },
+      "image": {
+        "medium": "http://tvmazecdn.com/uploads/images/medium_portrait/52/132080.jpg",
+        "original": "http://tvmazecdn.com/uploads/images/original_untouched/52/132080.jpg"
+      },
+      "summary": "<p>A young boy aids in the fight against a mechanized terrorist organization as the sole controller of a prototype giant robot.</p>",
+      "updated": 1460521333,
+      "_links": {
+        "self": {
+          "href": "http://api.tvmaze.com/shows/15591"
+        },
+        "previousepisode": {
+          "href": "http://api.tvmaze.com/episodes/707908"
+        }
+      }
+    }
+  },
+  {
+    "score": 0.10200626,
+    "show": {
+      "id": 15339,
+      "url": "http://www.tvmaze.com/shows/15339/my-boyfriend-is-a-robot",
+      "name": "My Boyfriend is a Robot",
+      "type": "Scripted",
+      "language": "English",
+      "genres": [],
+      "status": "In Development",
+      "runtime": null,
+      "premiered": null,
+      "schedule": {
+        "time": "",
+        "days": []
+      },
+      "rating": {
+        "average": null
+      },
+      "weight": 0,
+      "network": {
+        "id": 26,
+        "name": "FreeForm",
+        "country": {
+          "name": "United States",
+          "code": "US",
+          "timezone": "America/New_York"
+        }
+      },
+      "webChannel": null,
+      "externals": {
+        "tvrage": null,
+        "thetvdb": null,
+        "imdb": null
+      },
+      "image": null,
+      "summary": "<p>A romantic fish-out-of-water comedy centering on the relationship between a girl and her boyfriend – who happens to be a robot. </p>",
+      "updated": 1460070317,
+      "_links": {
+        "self": {
+          "href": "http://api.tvmaze.com/shows/15339"
+        }
+      }
+    }
+  },
+  {
+    "score": 0.08744133,
+    "show": {
+      "id": 12450,
+      "url": "http://www.tvmaze.com/shows/12450/my-life-as-a-teenage-robot",
+      "name": "My Life As a Teenage Robot",
+      "type": "Animation",
+      "language": "English",
+      "genres": [
+        "Comedy",
+        "Action"
+      ],
+      "status": "Ended",
+      "runtime": 30,
+      "premiered": "2003-08-01",
+      "schedule": {
+        "time": "19:00",
+        "days": [
+          "Friday"
+        ]
+      },
+      "rating": {
+        "average": 9
+      },
+      "weight": 0,
+      "network": {
+        "id": 27,
+        "name": "Nickelodeon",
+        "country": {
+          "name": "United States",
+          "code": "US",
+          "timezone": "America/New_York"
+        }
+      },
+      "webChannel": null,
+      "externals": {
+        "tvrage": null,
+        "thetvdb": 78444,
+        "imdb": "tt0318233"
+      },
+      "image": {
+        "medium": "http://tvmazecdn.com/uploads/images/medium_portrait/42/106384.jpg",
+        "original": "http://tvmazecdn.com/uploads/images/original_untouched/42/106384.jpg"
+      },
+      "summary": "<p>While most kids think their own problems are the end of the world, there's one girl whose problems really are the end of the world. <strong><em>\"My Life As a Teenage Robot\" </em></strong>is the story of Jenny, a super-powered robot with a super-sensitive teenage heart. Her primary function is to protect the planet from certain disaster, but, like all teenagers, she has her own ideas about how she would like to live. Defending the Earth has become a mundane chore, and she would rather do more exciting things like go to high school and be allowed to drive the family car. <em>My Life As a Teenage Robot</em>, a spin-off from Nickelodeon's hit Oh Yeah! Cartoons (under the name My Neighbor Has a Teenage Robot), was created by Rob Renzetti and is executive produced by Renzetti and Fred Seibert. This show is the third of three spinoffs of Oh Yeah! </p>",
+      "updated": 1457776496,
+      "_links": {
+        "self": {
+          "href": "http://api.tvmaze.com/shows/12450"
+        },
+        "previousepisode": {
+          "href": "http://api.tvmaze.com/episodes/593465"
+        }
+      }
+    }
+  }
+]
