@@ -142,7 +142,7 @@ public class ShowRename {
 		List<String> episodes = Arrays.asList("E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08",
 				"E09", "E10", "E11", "E12", "E13", "E14", "E15", "E16", "E17", "E18", "E19", "E20", "E21");
 		for (String episode : episodes) {
-			if (path.getFileName().toString().contains(episode)) {
+			if (path.getFileName().toString().toUpperCase().contains(episode)) {
 				return episodes.indexOf(episode) + 1;
 			}
 		}
