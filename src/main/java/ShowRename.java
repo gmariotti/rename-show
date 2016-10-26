@@ -170,7 +170,6 @@ public class ShowRename {
 		return show;
 	}
 
-	// TODO - just doing a comment to test
 	private static Integer getEpisodeNumber(Path path) {
 		// TODO hardcoded, must be removed
 		List<String> episodes = Arrays.asList("E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08",
