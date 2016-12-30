@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -19,16 +18,17 @@ import java.util.stream.Stream;
 
 import domain.Episode;
 import domain.EpisodeFormat;
+import extensions.FilesUtilitiesKt;
 import javaslang.Tuple;
 import javaslang.Tuple2;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import terminal.TerminalKt;
+import terminal.TerminalInputs;
 import tvmaze.TvMaze;
 import tvmaze.TvMazeManager;
-import tvmaze.pojo.TvMazeEpisode;
 import tvmaze.pojo.TvMazeSearch;
 import tvmaze.pojo.search.Show;
-import utilities.FilesUtilities;
 
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.joining;
@@ -38,16 +38,13 @@ import static java.util.stream.Collectors.toMap;
 
 public class ShowRename {
 
-	// TODO - this new comment will be pushed
 	public static void main(String... args) {
-		Terminal terminal = Terminal.newInstance(args);
-
-		final String dirPath = terminal.getDirectory();
-		Path directory = Paths.get(dirPath); // throws an exception if is not a valid path
+		final TerminalInputs terminal = TerminalKt.parseTerminal(args);
+		final Path directory = terminal.getDir();
 		final String showName = terminal.getShow();
 		final int seasonNum = terminal.getSeason();
 		final List<String> keywords = terminal.getKeywords();
-		System.out.println("Working directory is " + dirPath);
+		System.out.println("Working directory is " + directory);
 		System.out.println("Show = " + showName);
 		System.out.println("Season = " + seasonNum);
 		System.out.println("List of keyword to search for is " +
@@ -61,7 +58,6 @@ public class ShowRename {
 		CompletableFuture<Map<Integer, String>> requestEpisodes = CompletableFuture.supplyAsync(() -> {
 			final Retrofit retrofit = new Retrofit.Builder()
 					.baseUrl("http://api.tvmaze.com")
-					//.addCallAdapterFactory(RxJavaCallAdapterFactory.create())
 					.addConverterFactory(GsonConverterFactory.create())
 					.build();
 			Optional<Tuple2<String, Integer>> show = getShow(retrofit, showName);
@@ -75,22 +71,23 @@ public class ShowRename {
 
 
 		Map<Integer, List<Path>> filenames =
-				FilesUtilities.getFilesInDirectory(directory)
-				              .orElse(Stream.empty())
-				              .filter(file -> TvMazeManager.searchForKeyword(file.getFileName(), keywords))
-				              .filter(file -> TvMazeManager.isOfSeason(file.getFileName(), seasonStr))
-				              .collect(groupingBy(ShowRename::getEpisodeNumber));
+				FilesUtilitiesKt.getStreamOfFiles(directory)
+				                .orElse(Stream.empty())
+				                .filter(file -> TvMazeManager.searchForKeyword(file.getFileName(), keywords))
+				                .filter(file -> TvMazeManager.isOfSeason(file.getFileName(), seasonStr))
+				                .collect(groupingBy(ShowRename::getEpisodeNumber));
 
 		try {
 			final Map<Integer, String> episodes = requestEpisodes.get(30, TimeUnit.SECONDS);
 			filenames.forEach(
 					(key, list) -> list.stream()
 					                   .map(path -> Tuple.of(path, path.getFileName().toString()))
-					                   .map(tuple -> Tuple.of(tuple._1(),
-							                   FilesUtilities.getFilename(episodes.get(key), FilesUtilities.getFileExtension(tuple
-									                   ._2()))))
-					                   .map(tuple -> Tuple.of(tuple._1(), Paths.get(dirPath, tuple._2())))
-					                   .forEach(tuple -> FilesUtilities.moveFile(tuple._1(), tuple._2())));
+					                   .map(tuple -> Tuple.of(
+							                   tuple._1(),
+							                   FilesUtilitiesKt.addExtension(episodes.get(key),
+									                   FilesUtilitiesKt.getExtension(tuple._2()))
+					                   )).map(tuple -> Tuple.of(tuple._1(), Paths.get(directory.toString(), tuple._2())))
+					                   .forEach(tuple -> FilesUtilitiesKt.moveFile(tuple._1(), tuple._2())));
 
 			// TODO debug
 			System.out.println("===============");
@@ -115,7 +112,7 @@ public class ShowRename {
 				             .orElse(Collections.emptyList())
 				             .stream()
 				             .filter(tvMazeEpisode -> tvMazeEpisode.getSeason() == seasonNum)
-				             .map(episode -> Episode.createEpisode(episode, showName))
+				             .map(episode -> Episode.Companion.createEpisode(episode, showName))
 				             .collect(toMap(Episode::getNumber, episodeFormatter));
 
 		if (mapOfEpisodes.size() == 0) {

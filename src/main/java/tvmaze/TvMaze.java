@@ -6,7 +6,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import rx.Observable;
 import tvmaze.pojo.TvMazeEpisode;
 import tvmaze.pojo.TvMazeSearch;
 
