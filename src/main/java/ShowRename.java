@@ -19,14 +19,15 @@ import java.util.stream.Stream;
 import domain.Episode;
 import domain.EpisodeFormat;
 import extensions.FilesUtilitiesKt;
+import extensions.PathKt;
+import extensions.TvMazeKt;
 import javaslang.Tuple;
 import javaslang.Tuple2;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import terminal.TerminalKt;
 import terminal.TerminalInputs;
+import terminal.TerminalKt;
 import tvmaze.TvMaze;
-import tvmaze.TvMazeManager;
 import tvmaze.pojo.TvMazeSearch;
 import tvmaze.pojo.search.Show;
 
@@ -73,8 +74,8 @@ public class ShowRename {
 		Map<Integer, List<Path>> filenames =
 				FilesUtilitiesKt.getStreamOfFiles(directory)
 				                .orElse(Stream.empty())
-				                .filter(file -> TvMazeManager.searchForKeyword(file.getFileName(), keywords))
-				                .filter(file -> TvMazeManager.isOfSeason(file.getFileName(), seasonStr))
+				                .filter(file -> PathKt.isKeywordPresent(file.getFileName(), keywords))
+				                .filter(file -> PathKt.toUpperCaseString(file.getFileName()).contains(seasonStr))
 				                .collect(groupingBy(ShowRename::getEpisodeNumber));
 
 		try {
@@ -108,12 +109,12 @@ public class ShowRename {
 
 		Function<Episode, String> episodeFormatter = EpisodeFormat.createFormatter(fileFormat);
 		Map<Integer, String> mapOfEpisodes =
-				TvMazeManager.getEpisodes(retrofit.create(TvMaze.class), showID)
-				             .orElse(Collections.emptyList())
-				             .stream()
-				             .filter(tvMazeEpisode -> tvMazeEpisode.getSeason() == seasonNum)
-				             .map(episode -> Episode.Companion.createEpisode(episode, showName))
-				             .collect(toMap(Episode::getNumber, episodeFormatter));
+				TvMazeKt.getEpisodes(retrofit.create(TvMaze.class), showID)
+				        .orElse(Collections.emptyList())
+				        .stream()
+				        .filter(tvMazeEpisode -> tvMazeEpisode.getSeason() == seasonNum)
+				        .map(episode -> Episode.Companion.createEpisode(episode, showName))
+				        .collect(toMap(Episode::getNumber, episodeFormatter));
 
 		if (mapOfEpisodes.size() == 0) {
 			System.out.println("The list of episodes for " + showName + " is empty.");
@@ -125,11 +126,11 @@ public class ShowRename {
 
 	private static Optional<Tuple2<String, Integer>> getShow(Retrofit retrofit, String showName) {
 		TvMaze tvMaze = retrofit.create(TvMaze.class);
-		List<Show> shows = TvMazeManager.getTvShowFromName(tvMaze, showName)
-		                                .orElse(Collections.emptyList())
-		                                .stream()
-		                                .map(TvMazeSearch::getShow)
-		                                .collect(toList());
+		List<Show> shows = TvMazeKt.getTvShowFromName(tvMaze, showName)
+		                           .orElse(Collections.emptyList())
+		                           .stream()
+		                           .map(TvMazeSearch::getShow)
+		                           .collect(toList());
 
 		Optional<Tuple2<String, Integer>> show = Optional.empty();
 		if (shows.size() > 1) {

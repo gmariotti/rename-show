@@ -4,6 +4,7 @@ import org.apache.commons.cli.CommandLine
 import org.apache.commons.cli.HelpFormatter
 import org.apache.commons.cli.Options
 import terminal.TerminalInputs
+import terminal.TerminalOption.*
 import java.nio.file.Paths
 import kotlin.system.exitProcess
 
@@ -18,8 +19,10 @@ fun CommandLine.ifHelp(options: Options): CommandLine {
 }
 
 fun CommandLine.checkMandatory(): CommandLine {
-	val allMandatory = this.hasOption("dir") && this.hasOption("show") && this.hasOption("season")
-			&& this.hasOption("k")
+	val allMandatory = this.hasOption(DIR.shortName)
+			&& this.hasOption(SHOW.shortName)
+			&& this.hasOption(SEASON.shortName)
+			&& this.hasOption(KEYWORDS.shortName)
 	if (allMandatory) {
 		return this
 	} else {
@@ -29,7 +32,8 @@ fun CommandLine.checkMandatory(): CommandLine {
 }
 
 fun CommandLine.parseTerminalOptions(): TerminalInputs = TerminalInputs(
-		dir = Paths.get(this.getOptionValue("d")), show = this.getOptionValue("sh"),
-		season = if (this.getOptionValue("se").toInt() > 0) this.getOptionValue("se").toInt() else 1,
-		keywords = this.getOptionValues("k").toList()
+		dir = Paths.get(this.getOptionValue(DIR.shortName)),
+		show = this.getOptionValue(SHOW.shortName),
+		season = if (this.getOptionValue(SEASON.shortName).toInt() > 0) this.getOptionValue(SEASON.shortName).toInt() else 1,
+		keywords = this.getOptionValues(KEYWORDS.shortName).toList()
 )
