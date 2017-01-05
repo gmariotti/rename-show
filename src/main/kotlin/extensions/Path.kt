@@ -1,3 +1,5 @@
+@file:JvmName("PathUtilities")
+
 package extensions
 
 import java.nio.file.Path

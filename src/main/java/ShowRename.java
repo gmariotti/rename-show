@@ -1,3 +1,5 @@
+import org.jetbrains.annotations.NotNull;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,14 +15,16 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import domain.Episode;
 import domain.EpisodeFormat;
-import extensions.FilesUtilitiesKt;
-import extensions.PathKt;
-import extensions.TvMazeKt;
+import extensions.FilesUtilities;
+import extensions.PathUtilities;
+import extensions.TvMazeUtilities;
 import javaslang.Tuple;
 import javaslang.Tuple2;
 import retrofit2.Retrofit;
@@ -71,24 +75,23 @@ public class ShowRename {
 		});
 
 
-		Map<Integer, List<Path>> filenames =
-				FilesUtilitiesKt.getStreamOfFiles(directory)
-				                .orElse(Stream.empty())
-				                .filter(file -> PathKt.isKeywordPresent(file.getFileName(), keywords))
-				                .filter(file -> PathKt.toUpperCaseString(file.getFileName()).contains(seasonStr))
-				                .collect(groupingBy(ShowRename::getEpisodeNumber));
+		Map<Integer, List<Path>> filenames = FilesUtilities
+				.getStreamOfFiles(directory).orElse(Stream.empty())
+				.filter(file -> PathUtilities.isKeywordPresent(file.getFileName(), keywords))
+				.filter(file -> PathUtilities.toUpperCaseString(file.getFileName()).contains(seasonStr))
+				.collect(groupingBy(ShowRename::getEpisodeNumber));
 
 		try {
 			final Map<Integer, String> episodes = requestEpisodes.get(30, TimeUnit.SECONDS);
-			filenames.forEach(
-					(key, list) -> list.stream()
-					                   .map(path -> Tuple.of(path, path.getFileName().toString()))
-					                   .map(tuple -> Tuple.of(
-							                   tuple._1(),
-							                   FilesUtilitiesKt.addExtension(episodes.get(key),
-									                   FilesUtilitiesKt.getExtension(tuple._2()))
-					                   )).map(tuple -> Tuple.of(tuple._1(), Paths.get(directory.toString(), tuple._2())))
-					                   .forEach(tuple -> FilesUtilitiesKt.moveFile(tuple._1(), tuple._2())));
+			filenames.forEach((key, list) ->
+					list.stream()
+					    .map(path -> Tuple.of(path, path.getFileName().toString()))
+					    .map(tuple -> Tuple.of(tuple._1(),
+							    FilesUtilities.addExtension(episodes.get(key),
+									    FilesUtilities.getExtension(tuple._2()))))
+					    .map(tuple -> Tuple.of(tuple._1(), Paths.get(directory.toString(), tuple._2())))
+					    .forEach(tuple -> FilesUtilities.moveFile(tuple._1(), tuple._2()))
+			);
 
 			// TODO debug
 			System.out.println("===============");
@@ -109,12 +112,12 @@ public class ShowRename {
 
 		Function<Episode, String> episodeFormatter = EpisodeFormat.createFormatter(fileFormat);
 		Map<Integer, String> mapOfEpisodes =
-				TvMazeKt.getEpisodes(retrofit.create(TvMaze.class), showID)
-				        .orElse(Collections.emptyList())
-				        .stream()
-				        .filter(tvMazeEpisode -> tvMazeEpisode.getSeason() == seasonNum)
-				        .map(episode -> Episode.Companion.createEpisode(episode, showName))
-				        .collect(toMap(Episode::getNumber, episodeFormatter));
+				TvMazeUtilities.getEpisodes(retrofit.create(TvMaze.class), showID)
+				               .orElse(Collections.emptyList())
+				               .stream()
+				               .filter(tvMazeEpisode -> tvMazeEpisode.getSeason() == seasonNum)
+				               .map(episode -> Episode.Companion.createEpisode(episode, showName))
+				               .collect(toMap(Episode::getNumber, episodeFormatter));
 
 		if (mapOfEpisodes.size() == 0) {
 			System.out.println("The list of episodes for " + showName + " is empty.");
@@ -126,11 +129,11 @@ public class ShowRename {
 
 	private static Optional<Tuple2<String, Integer>> getShow(Retrofit retrofit, String showName) {
 		TvMaze tvMaze = retrofit.create(TvMaze.class);
-		List<Show> shows = TvMazeKt.getTvShowFromName(tvMaze, showName)
-		                           .orElse(Collections.emptyList())
-		                           .stream()
-		                           .map(TvMazeSearch::getShow)
-		                           .collect(toList());
+		List<Show> shows = TvMazeUtilities.getTvShowFromName(tvMaze, showName)
+		                                  .orElse(Collections.emptyList())
+		                                  .stream()
+		                                  .map(TvMazeSearch::getShow)
+		                                  .collect(toList());
 
 		Optional<Tuple2<String, Integer>> show = Optional.empty();
 		if (shows.size() > 1) {
@@ -139,7 +142,7 @@ public class ShowRename {
 			         .forEach(i -> System.out.println(
 					         String.format("(%d) - %s", i, shows.get(i).getName())
 			         ));
-			System.out.println();
+			System.out.println("\nInsert show number");
 			boolean isOk = false;
 			String selection = null;
 			while (!isOk) {
@@ -168,16 +171,13 @@ public class ShowRename {
 		return show;
 	}
 
-	private static Integer getEpisodeNumber(Path path) {
-		// TODO hardcoded, must be removed
-		List<String> episodes = Arrays.asList("E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08",
-				"E09", "E10", "E11", "E12", "E13", "E14", "E15", "E16", "E17", "E18", "E19", "E20", "E21");
-		for (String episode : episodes) {
-			if (path.getFileName().toString().toUpperCase().contains(episode)) {
-				return episodes.indexOf(episode) + 1;
-			}
+	private static Integer getEpisodeNumber(@NotNull Path path) {
+		Pattern pattern = Pattern.compile("(e|E)\\d+");
+		Matcher matcher = pattern.matcher(path.getFileName().toString());
+		if (matcher.find()) {
+			return Integer.parseInt(matcher.group(0).substring(1));
+		} else {
+			return -1;
 		}
-		return -1;
 	}
-
 }

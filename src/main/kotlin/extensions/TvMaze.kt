@@ -1,3 +1,5 @@
+@file:JvmName("TvMazeUtilities")
+
 package extensions
 
 import tvmaze.TvMaze
