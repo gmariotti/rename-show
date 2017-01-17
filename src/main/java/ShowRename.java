@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -78,19 +78,31 @@ public class ShowRename {
 		Map<Integer, List<Path>> filenames = FilesUtilities
 				.getStreamOfFiles(directory).orElse(Stream.empty())
 				.filter(file -> PathUtilities.isKeywordPresent(file.getFileName(), keywords))
-				.filter(file -> PathUtilities.toUpperCaseString(file.getFileName()).contains(seasonStr))
+//				.filter(file -> PathUtilities.toUpperCaseString(file.getFileName()).contains(seasonStr))
+				.filter(file -> {
+					String name = PathUtilities.toUpperCaseString(file.getFileName());
+					List<String> possibilities = new ArrayList<>();
+					possibilities.add("S" + (seasonNum > 9 ? String.valueOf(seasonNum) : "0" + seasonNum));
+					possibilities.add("[" + seasonNum);
+					for (String possibility : possibilities) {
+						if (name.contains(possibility)) {
+							return true;
+						}
+					}
+					return false;
+				})
 				.collect(groupingBy(ShowRename::getEpisodeNumber));
 
 		try {
 			final Map<Integer, String> episodes = requestEpisodes.get(30, TimeUnit.SECONDS);
 			filenames.forEach((key, list) ->
 					list.stream()
-					    .map(path -> Tuple.of(path, path.getFileName().toString()))
-					    .map(tuple -> Tuple.of(tuple._1(),
-							    FilesUtilities.addExtension(episodes.get(key),
-									    FilesUtilities.getExtension(tuple._2()))))
-					    .map(tuple -> Tuple.of(tuple._1(), Paths.get(directory.toString(), tuple._2())))
-					    .forEach(tuple -> FilesUtilities.moveFile(tuple._1(), tuple._2()))
+							.map(path -> Tuple.of(path, path.getFileName().toString()))
+							.map(tuple -> Tuple.of(tuple._1(),
+									FilesUtilities.addExtension(episodes.get(key),
+											FilesUtilities.getExtension(tuple._2()))))
+							.map(tuple -> Tuple.of(tuple._1(), Paths.get(directory.toString(), tuple._2())))
+							.forEach(tuple -> FilesUtilities.moveFile(tuple._1(), tuple._2()))
 			);
 
 			// TODO debug
@@ -113,11 +125,11 @@ public class ShowRename {
 		Function<Episode, String> episodeFormatter = EpisodeFormat.createFormatter(fileFormat);
 		Map<Integer, String> mapOfEpisodes =
 				TvMazeUtilities.getEpisodes(retrofit.create(TvMaze.class), showID)
-				               .orElse(Collections.emptyList())
-				               .stream()
-				               .filter(tvMazeEpisode -> tvMazeEpisode.getSeason() == seasonNum)
-				               .map(episode -> Episode.Companion.createEpisode(episode, showName))
-				               .collect(toMap(Episode::getNumber, episodeFormatter));
+						.orElse(Collections.emptyList())
+						.stream()
+						.filter(tvMazeEpisode -> tvMazeEpisode.getSeason() == seasonNum)
+						.map(episode -> Episode.Companion.createEpisode(episode, showName))
+						.collect(toMap(Episode::getNumber, episodeFormatter));
 
 		if (mapOfEpisodes.size() == 0) {
 			System.out.println("The list of episodes for " + showName + " is empty.");
@@ -130,18 +142,18 @@ public class ShowRename {
 	private static Optional<Tuple2<String, Integer>> getShow(Retrofit retrofit, String showName) {
 		TvMaze tvMaze = retrofit.create(TvMaze.class);
 		List<Show> shows = TvMazeUtilities.getTvShowFromName(tvMaze, showName)
-		                                  .orElse(Collections.emptyList())
-		                                  .stream()
-		                                  .map(TvMazeSearch::getShow)
-		                                  .collect(toList());
+				.orElse(Collections.emptyList())
+				.stream()
+				.map(TvMazeSearch::getShow)
+				.collect(toList());
 
 		Optional<Tuple2<String, Integer>> show = Optional.empty();
 		if (shows.size() > 1) {
 			System.out.println("Select the correct show in the list");
 			IntStream.range(0, shows.size())
-			         .forEach(i -> System.out.println(
-					         String.format("(%d) - %s", i, shows.get(i).getName())
-			         ));
+					.forEach(i -> System.out.println(
+							String.format("(%d) - %s", i, shows.get(i).getName())
+					));
 			System.out.println("\nInsert show number");
 			boolean isOk = false;
 			String selection = null;
@@ -172,12 +184,17 @@ public class ShowRename {
 	}
 
 	private static Integer getEpisodeNumber(@NotNull Path path) {
-		Pattern pattern = Pattern.compile("(e|E)\\d+");
-		Matcher matcher = pattern.matcher(path.getFileName().toString());
-		if (matcher.find()) {
-			return Integer.parseInt(matcher.group(0).substring(1));
-		} else {
-			return -1;
+		Pattern pattern1 = Pattern.compile("(e|E)\\d+");
+		Pattern pattern2 = Pattern.compile("(\\.)\\d+(])");
+		List<Pattern> patterns = new ArrayList<>();
+		patterns.add(pattern1);
+		patterns.add(pattern2);
+		for (Pattern pattern : patterns) {
+			Matcher matcher = pattern.matcher(path.getFileName().toString());
+			if (matcher.find()) {
+				return Integer.parseInt(matcher.group(0).replaceAll("[^\\d]",""));
+			}
 		}
+		return -1;
 	}
 }
